@@ -1,0 +1,19 @@
+[uwsgi]
+
+project         = &(name)
+uid             = uwsgi-service
+base            = /var/www/%(project)
+
+chdir           = %(base)
+home            = %(base)/Env/%(project)
+module          = %(project).wsgi:application
+
+master          = true
+processes       = 5
+
+socket          = /run/uwsgi/%(project).sock
+chown-socket    = %(uid):www-data
+chmod-socket    = 660
+vacuum          = true
+
+env             = HTTPS=on
